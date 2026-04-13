@@ -1,0 +1,19 @@
+from typing import List
+
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        memo = {}
+
+        def dp(i: int) -> int:
+            # max money you can rob starting at index i
+            if i >= len(nums):
+                return 0
+            if i in memo:
+                return memo[i]
+
+            take = nums[i] + dp(i + 2)
+            skip = dp(i + 1)
+            memo[i] = max(take, skip)
+            return memo[i]
+
+        return dp(0)
